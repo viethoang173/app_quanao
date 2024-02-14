@@ -1,0 +1,73 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
+
+import React, { useEffect, useState, Component } from 'react';
+import type {Node} from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
+
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import news from '../../actions/news';
+import { connect } from 'react-redux';
+
+class Detail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      msg: props.msg.msg
+    }
+  } 
+  
+  updateTxt(value) {
+    this.props.news(value);
+    // this.setState({msg: this.props.msg.msg});
+    this.props.navigation.navigate('Home');
+  }
+  
+
+  render() {
+  return (
+    <View style={{flex: 1}}>
+    <View>
+      <Text>{this.props.msg.msg}</Text>
+            <TouchableOpacity
+                  onPress={() => this.updateTxt('Comeback From Detail')}>
+                  <Text>Set text thành Comeback From Detail</Text>
+                </TouchableOpacity>
+
+        </View>
+    </View>
+  );
+};
+};
+
+const mapStateToProps = state => ({
+  msg: state.d,
+});
+
+
+const mapDispatchToProps = dispatch => ({
+  news: (data) => dispatch(news('setTxt', data))
+});
+
+// const Detail = connect(state => ({ msg: state.msg }))(DetailScreen);
+// export default Detail;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Detail);
