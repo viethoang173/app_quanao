@@ -1,2 +1,0 @@
-
-export const CURRENT_CUSTOMER_ID = 'CURRENT_CUSTOMER_ID';
